@@ -23,19 +23,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Prog_Proj_1.exe
+all: Prog_Proj_1
 
 # Tool invocations
-Prog_Proj_1.exe: $(OBJS) $(USER_OBJS)
+Prog_Proj_1: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: Cygwin C Linker'
-	gcc  -o "Prog_Proj_1.exe" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: GCC C Linker'
+	gcc  -o "Prog_Proj_1" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Prog_Proj_1.exe
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Prog_Proj_1
 	-@echo ' '
 
 .PHONY: all clean dependents

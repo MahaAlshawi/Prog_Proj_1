@@ -3,7 +3,7 @@
  Name        : Prog_Proj_1.c
  Author      : Maha Alshawi
  Version     :
- Copyright   : @Dartmouth College
+ Copyright   : @Dartmouth college
  Description : Hello World in C, Ansi-style
  ============================================================================
  */
@@ -12,7 +12,6 @@
 #include <stdlib.h>
 
 int main(void) {
-	// Adding comment
 	printf("!!!Hello World!!!"); /* prints !!!Hello World!!! */
 	return EXIT_SUCCESS;
 }
