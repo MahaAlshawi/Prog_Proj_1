@@ -12,6 +12,7 @@
 #include <stdlib.h>
 
 int main(void) {
+	// Adding comment
 	printf("!!!Hello World!!!"); /* prints !!!Hello World!!! */
 	return EXIT_SUCCESS;
 }
