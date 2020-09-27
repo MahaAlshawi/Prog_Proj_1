@@ -23,19 +23,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Prog_Proj_1
+all: Album
 
 # Tool invocations
-Prog_Proj_1: $(OBJS) $(USER_OBJS)
+Album: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc  -o "Prog_Proj_1" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "Album" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Prog_Proj_1
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Album
 	-@echo ' '
 
 .PHONY: all clean dependents

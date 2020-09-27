@@ -7,6 +7,8 @@
  Description : Hello World in C, Ansi-style
  ============================================================================
  */
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,7 +19,6 @@
 #include <stdarg.h>
 //#define indent "========"
 #define MAX_NUMBER_OF_PHOTOS 400
-void forking10(int count,int NumParams,...);
 int main(int argc, char *argv[]) {
 	//const char * filename
 	// Adding comment
@@ -25,6 +26,7 @@ int main(int argc, char *argv[]) {
 	char multi_arg[MAX_NUMBER_OF_PHOTOS][50];
 	char command[MAX_NUMBER_OF_PHOTOS][5][50];
 	memset(command,0,sizeof(command));
+	mkdir("Maha",0777);
 	if (argc > 1 && argc < MAX_NUMBER_OF_PHOTOS) {
 		//for()
 		//rc = fork();
@@ -53,7 +55,7 @@ int main(int argc, char *argv[]) {
 		}
 		else
 		{
-			for(int i=0;i<argc;i++)
+			for(int i=1;i<argc;i++)
 			{
 				strcpy(multi_arg[arg_count],argv[i]);
 				arg_count++;
@@ -177,14 +179,14 @@ int main(int argc, char *argv[]) {
 
 				}
 			}
-			else
-				printf("Wrong choice");
+			else{}
+				//printf("Wrong choice");
 
 		}
 		FILE *fp;
 		fp = fopen("./main/Album.html", "w+");
 		fprintf(fp,HEAD);
-		for(count = 1; count < arg_count; count++){
+		for(count = 0; count < arg_count; count++){
 			fprintf(fp,REP1);
 			fprintf(fp,"%s", caption[count]);
 			fprintf(fp,REP2);
@@ -202,26 +204,4 @@ int main(int argc, char *argv[]) {
 
 	return EXIT_SUCCESS;
 }
-void forking10(int count,int NumParams,...){
-	int i,j,status,rc[count+1];
-	va_list valist;
-	char *Params[NumParams];
-	va_start(valist, NumParams); //initialize valist for num number of arguments
-	for (i = 0; i < NumParams; i++) { //access all the arguments assigned to valist
-	      Params[i]= va_arg(valist, char*);
-	      printf("Param of %d is %s \n",i,Params[i]);
-	   }
-	for(i=0;i<count;){
-		do{
-			i++;
-			rc[i] = fork();
-			if(rc[i] == 0){
-					execvp(Params[0],Params);
-					exit(0);
-			}
-		}while((i%10&&i<count)); // done forking 10 processes, now wait for compeletion
-		for( j= 1; j <= i; j++)
-			waitpid(rc[j],&status,0);
-	}
-	va_end(valist); //clean memory reserved for valist
-}
+
