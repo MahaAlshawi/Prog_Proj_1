@@ -17,7 +17,7 @@
 #include <stdarg.h>
 //#define indent "========"
 #define MAX_NUMBER_OF_PHOTOS 400
-void forking10(int count,int NumParams,...);
+void forking10(int count,char command[MAX_NUMBER_OF_PHOTOS][5][50],int NumParams,...);
 int main(int argc, char *argv[]) {
 	//const char * filename
 	// Adding comment
@@ -53,9 +53,9 @@ int main(int argc, char *argv[]) {
 		}
 		else
 		{
-			for(int i=0;i<argc;i++)
+			for(int i=1;i<argc;i++)
 			{
-				strcpy(multi_arg[arg_count],argv[i]);
+				strcpy(multi_arg[i-1],argv[i]);
 				arg_count++;
 			}
 		}
@@ -78,17 +78,18 @@ int main(int argc, char *argv[]) {
 			// destination of properly oriented medium size photo
 			strcat(command[count][4],"./main/destination4/");
 			strcat(command[count][4],(const char*)multi_arg[count]);
-
 			printf("magick %s %s %s\r\n","convert -resize 10%",command[count][0],command[count][1]);
 		}
-		for(count = 0; count < arg_count; count++){
+		/*for(count = 0; count < arg_count; count++){
 			rc = fork();
 			printf("After Forking!! %s\n\n",command[count][1]);
 			if(rc == 0){
 				execlp("magick","convert","-resize","10%",command[count][0],command[count][1],NULL);
 				exit(0);
 			}
-		}
+		}*/
+		printf("command 1 is %s \n",command[count][0]);
+		forking10(arg_count,command,4,"magick","convert","-resize","10%");
 		//pid = rc;
 		//printf("%s my child has pid %d\n", indent, pid);
 		//waitpid(pid, &status, 0);
@@ -202,10 +203,10 @@ int main(int argc, char *argv[]) {
 
 	return EXIT_SUCCESS;
 }
-void forking10(int count,int NumParams,...){
+void forking10(int count,char command[MAX_NUMBER_OF_PHOTOS][5][50],int NumParams,...){
 	int i,j,status,rc[count+1];
 	va_list valist;
-	char *Params[NumParams];
+	char *Params[NumParams+2];
 	va_start(valist, NumParams); //initialize valist for num number of arguments
 	for (i = 0; i < NumParams; i++) { //access all the arguments assigned to valist
 	      Params[i]= va_arg(valist, char*);
@@ -214,8 +215,16 @@ void forking10(int count,int NumParams,...){
 	for(i=0;i<count;){
 		do{
 			i++;
+			memset(Params[NumParams],0,50);
+			memset(Params[NumParams+1],0,50);
+			Params[NumParams] = command[i-1][0];
+			Params[NumParams+1] = command[i-1][1];
+			printf("Param of %d is %s \n",i,Params[NumParams]);
+			printf("Param of %d is %s \n",i,Params[NumParams+1]);
 			rc[i] = fork();
+
 			if(rc[i] == 0){
+					printf("Forking %s %s %s %s %s %s \n",Params[0],Params[1],Params[2],Params[3],Params[4],Params[5],Params[6]);
 					execvp(Params[0],Params);
 					exit(0);
 			}
