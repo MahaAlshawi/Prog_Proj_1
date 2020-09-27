@@ -26,7 +26,14 @@ int main(int argc, char *argv[]) {
 	char multi_arg[MAX_NUMBER_OF_PHOTOS][50];
 	char command[MAX_NUMBER_OF_PHOTOS][5][50];
 	memset(command,0,sizeof(command));
-	mkdir("Maha",0777);
+	mkdir("./main/thumbnail",0777);
+	mkdir("./main/destination2",0777);
+	mkdir("./main/destination3",0777);
+	mkdir("./main/destination4",0777);
+	mkdir("./main/thumbnail/photos",0777);
+	mkdir("./main/destination2/photos",0777);
+	mkdir("./main/destination3/photos",0777);
+	mkdir("./main/destination4/photos",0777);
 	if (argc > 1 && argc < MAX_NUMBER_OF_PHOTOS) {
 		//for()
 		//rc = fork();
@@ -46,7 +53,7 @@ int main(int argc, char *argv[]) {
 					{
 						strcat(multi_arg[arg_count],"photos/");
 						strcat(multi_arg[arg_count],dir->d_name);
-						printf("%s\n",multi_arg[arg_count]);
+						//printf("%s\n",multi_arg[arg_count]);
 						arg_count++;
 					}
 				}
@@ -61,7 +68,7 @@ int main(int argc, char *argv[]) {
 				arg_count++;
 			}
 		}
-		printf("count lenght = %d\n",arg_count);
+		//printf("count lenght = %d\n",arg_count);
 
 		for (count = 0; count < arg_count; count++) {
 			//printf("argv[%d] = %s\n", count, argv[count]);
@@ -81,11 +88,11 @@ int main(int argc, char *argv[]) {
 			strcat(command[count][4],"./main/destination4/");
 			strcat(command[count][4],(const char*)multi_arg[count]);
 
-			printf("magick %s %s %s\r\n","convert -resize 10%",command[count][0],command[count][1]);
+			//printf("magick %s %s %s\r\n","convert -resize 10%",command[count][0],command[count][1]);
 		}
 		for(count = 0; count < arg_count; count++){
 			rc = fork();
-			printf("After Forking!! %s\n\n",command[count][1]);
+			//printf("After Forking!! %s\n\n",command[count][1]);
 			if(rc == 0){
 				execlp("magick","convert","-resize","10%",command[count][0],command[count][1],NULL);
 				exit(0);
@@ -94,6 +101,7 @@ int main(int argc, char *argv[]) {
 		//pid = rc;
 		//printf("%s my child has pid %d\n", indent, pid);
 		//waitpid(pid, &status, 0);
+		sleep(1);
 		int var[arg_count-1];
 		char caption[arg_count-1][200];
 
@@ -197,6 +205,9 @@ int main(int argc, char *argv[]) {
 		}
 		fprintf(fp,TAIL);
 		fclose(fp);
+		sleep(5);
+		rmdir("./main/thumbnail");
+		rmdir("./main/destination3");
 	}
 	else {
 		printf("The command had no other arguments.\n");
